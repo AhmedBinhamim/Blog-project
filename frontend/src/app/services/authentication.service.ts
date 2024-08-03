@@ -5,6 +5,14 @@ import { map } from 'rxjs';
 export interface LoginForm{
   email: string;
   password: string;
+};
+
+export interface User{
+  name: string;
+  username: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
 }
 
 @Injectable({
@@ -21,6 +29,12 @@ export class AuthenticationService {
         localStorage.setItem('blog-token', token.access_token)
         return token;
       })
+    )
+  }
+
+  register(user: User){
+    return this.http.post<any>('/api/users/', user).pipe(
+      map(user => user)
     )
   }
 }

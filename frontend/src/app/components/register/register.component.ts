@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -36,6 +37,16 @@ export class RegisterComponent implements OnInit {
       }), {
         // validators: CustomValidators.passwordMatches
       }
+  }
+
+  onSubmit(){
+    if(this.registerForm.invalid){
+      return;
+    }
+    console.log(this.registerForm.value);
+    this.authService.register(this.registerForm.value).pipe(
+      map(user => this.router.navigate(["login"]))
+    ).subscribe();
   }
 
 }
