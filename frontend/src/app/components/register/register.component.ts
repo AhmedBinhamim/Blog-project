@@ -1,8 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { AuthenticationService } from '../../services/authentication.service';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
+
+class CustomValidators {
+  static passwordContainsNumber(control: AbstractControl): ValidationErrors | null {
+    const regex = /\d/;
+
+    if (regex.test(control.value) && control.value !== null) {
+      return null;
+    } else {
+      return { passwordInvalid: true };
+    }
+  }
+}
 
 @Component({
   selector: 'app-register',
