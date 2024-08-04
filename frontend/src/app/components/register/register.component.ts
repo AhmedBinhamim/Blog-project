@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
         password: [null, [
           Validators.required,
           Validators.minLength(3),
-          // CustomValidators.passwordContainsNumber
+          CustomValidators.passwordContainsNumber
         ]],
         passwordConfirm: [ null, [Validators.required]]
       }), {
