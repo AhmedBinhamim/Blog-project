@@ -22,7 +22,6 @@ export class UsersComponent implements OnInit{
 
   initDataSource(){
     this.userService.findAll(1, 10).pipe(
-      tap(users => console.log(users)),
       map((userData: UserData) => this.dataSource = userData)
     ).subscribe();
   }
