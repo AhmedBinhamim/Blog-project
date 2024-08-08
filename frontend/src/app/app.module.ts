@@ -16,6 +16,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { UsersComponent } from './components/users/users.component';
 import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import {MatTableModule} from '@angular/material/table';
     MatSelectModule,
     MatOptionModule,
     MatTableModule,
+    MatPaginatorModule
   ],
   providers: [
     provideClientHydration(),
