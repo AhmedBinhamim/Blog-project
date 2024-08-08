@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserData, UserService } from '../../services/user.service';
-import { map, tap } from 'rxjs';
+import { map} from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
