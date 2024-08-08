@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserData, UserService } from '../../services/user service/user.service';
 import { map} from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
+import { User } from '../../services/authentication service/authentication.service';
 
 @Component({
   selector: 'app-users',
@@ -31,10 +32,24 @@ export class UsersComponent implements OnInit{
     let page = event.pageIndex;
     let size = event.pageSize;
 
-    page += 1;
+    if(this.filterValue == null){
+      page += 1;
 
-    this.userService.findAll(page, size).pipe(
-      map((userData: UserData) => this.dataSource = userData)
-    ).subscribe();
+      this.userService.findAll(page, size).pipe(
+        map((userData: UserData) => this.dataSource = userData)
+      ).subscribe();
+    } else {
+      this.userService.paginateByName(page, size, this.filterValue).pipe(
+        map((userData: UserData) => this.dataSource = userData )
+      ).subscribe()
+    }
+
+    
+  }
+
+  findByName(username: string){
+    this.userService.paginateByName(0, 10, username).pipe(
+      map((userData: UserData) => this.dataSource=userData)
+    ).subscribe()
   }
 }
