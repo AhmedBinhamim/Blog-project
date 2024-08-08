@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { User } from './authentication service/authentication.service';
+import { User } from '../authentication service/authentication.service';
 
 export interface UserData {
   items: User[],
@@ -32,6 +32,19 @@ export class UserService {
 
     params = params.append('page', String(page));
     params = params.append('limit', String(size));
+
+    return this.http.get<UserData>('/api/users', { params }).pipe(
+      map((userData: UserData) => userData),
+      catchError(err => throwError(() => err))
+    );
+  }
+
+  paginateByName(page: number, size: number, username: string): Observable<UserData>{
+    let params = new HttpParams();
+
+    params = params.append('page', String(page));
+    params = params.append('limit', String(size));
+    params = params.append('username', username);
 
     return this.http.get<UserData>('/api/users', { params }).pipe(
       map((userData: UserData) => userData),
