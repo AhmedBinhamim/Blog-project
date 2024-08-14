@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Request, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { UserService } from '../service/user.service';
 import { User, UserRole } from '../models/user.interface';
 import { catchError, map, Observable, of } from 'rxjs';
@@ -89,10 +89,17 @@ export class UserController {
         return this.userService.updateRoleOfUser(Number(id), user);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Post('upload')
     @UseInterceptors(FileInterceptor('file', storage ))
-    uploadFile(@UploadedFile() file): Observable<Object>{
-        return of ({imagePath: file.filename})
+    uploadFile(@UploadedFile() file, @Request() req): Observable<Object>{
+        const user: User = req.user.user;
+        console.log(user);
+
+        return this.userService.updateOne(user.id, {profileImage: file.filename}).pipe(
+            map((user:User) => ({profileImage: user.profileImage}))
+        )
     }
+    
 
 }
