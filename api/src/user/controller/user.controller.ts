@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, Request, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Request, Res, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
 import { UserService } from '../service/user.service';
 import { User, UserRole } from '../models/user.interface';
 import { catchError, map, Observable, of, tap } from 'rxjs';
@@ -96,9 +96,14 @@ export class UserController {
         const user: User = req.user.user;
 
         return this.userService.updateOne(user.id, {profileImage: file.filename}).pipe(
-            tap((user: User) => console.log(user)),
+            //tap((user: User) => console.log(user)),
             map((user:User) => ({profileImage: user.profileImage}))
         )
+    }
+
+    @Get('profile-image/:imagename')
+    findProfileImage(@Param('imagename') imagename, @Res() res): Observable<Object>{
+        return of(res.sendFile(path.join(process.cwd(), 'uploads/profileImages/' + imagename)));
     }
 
 }
