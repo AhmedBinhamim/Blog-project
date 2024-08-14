@@ -77,6 +77,7 @@ export class UserController {
         return this.userService.deleteOne(Number(id));
     }
 
+    @UseGuards(JwtAuthGuard)
     @Put(':id')
     updateOne(@Param('id') id: string, @Body() user: User): Observable<any>{    
         return this.userService.updateOne(Number(id), user);
