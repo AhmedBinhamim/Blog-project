@@ -8,12 +8,13 @@ export interface LoginForm{
 };
 
 export interface User{
-  name: string;
-  username: string;
-  email: string;
+  name?: string;
+  username?: string;
+  email?: string;
   role?: string;
-  password: string;
-  passwordConfirm: string;
+  password?: string;
+  //passwordConfirm: string;
+  profileImage?:string;
 }
 
 @Injectable({
