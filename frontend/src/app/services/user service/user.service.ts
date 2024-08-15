@@ -27,6 +27,13 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  findOne(id: number): Observable<User> {
+    return this.http.get<User>('/api/users/' + id).pipe(
+      map((user: User) => user)
+    );
+  }
+  
+
   findAll(page: number, size: number): Observable<UserData> {
     let params = new HttpParams();
 
