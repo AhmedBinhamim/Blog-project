@@ -18,7 +18,8 @@ import { UsersComponent } from './components/users/users.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { MatCardModule } from '@angular/material/card'; 
+import { MatCardModule } from '@angular/material/card';
+import { UpdateUserProfileComponent } from './components/update-user-profile/update-user-profile.component'; 
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MatCardModule } from '@angular/material/card';
     LoginComponent,
     RegisterComponent,
     UsersComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    UpdateUserProfileComponent
   ],
   imports: [
     BrowserModule,
