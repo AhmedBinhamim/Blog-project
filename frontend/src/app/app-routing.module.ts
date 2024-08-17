@@ -30,12 +30,12 @@ const routes: Routes = [
         path: ':id',
         component: UserProfileComponent
       },
-      {
-        path: 'update-profile',
-        component: UpdateUserProfileComponent,
-      }
     ]
   },
+  {
+    path: 'update-profile',
+    component: UpdateUserProfileComponent,
+  }
  
 ];
 
