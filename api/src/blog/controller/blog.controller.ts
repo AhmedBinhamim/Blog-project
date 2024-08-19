@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { BlogEntry } from '../model/blog-entry.interface';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 
-@Controller('blog')
+@Controller('blogs')
 export class BlogController {
 
     constructor(private blogservice: BlogService){}
