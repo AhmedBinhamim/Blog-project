@@ -43,6 +43,13 @@ export class BlogService {
             )
     }
 
+    findOne(id: number): Observable<BlogEntry> {
+        return from(this.blogRepository.findOne({
+            where: { id },
+            relations: ['author']
+        }));
+    }
+
     generateSlug(title: string): Observable<string>{
         return of(slugify(title));
     }
