@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { from, Observable, of, switchMap } from 'rxjs';
+import { from, map, Observable, of, switchMap } from 'rxjs';
 import { BlogEntry } from '../model/blog-entry.interface';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BlogEntryEntity } from '../model/blog-entry.entity';
@@ -25,6 +25,22 @@ export class BlogService {
                 return from(this.blogRepository.save(blogEntry))
             })
         )
+    }
+
+    findAll(): Observable<BlogEntry[]>{
+        return from(this.blogRepository.find({relations: ['author']}));
+    }
+
+    findByUser(userId: number): Observable<BlogEntry[]>{
+        return from(
+            this.blogRepository.find({
+                where: {
+                    author: { id: userId } as any  
+                },
+                relations: ['author']
+            })).pipe(
+                map((blogEntries: BlogEntry[]) => blogEntries)
+            )
     }
 
     generateSlug(title: string): Observable<string>{
