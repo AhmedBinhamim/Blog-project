@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, Request, UseGuards } from '@nestjs/common';
 import { BlogService } from '../service/blog.service';
 import { Observable } from 'rxjs';
 import { BlogEntry } from '../model/blog-entry.interface';
@@ -14,5 +14,16 @@ export class BlogController {
     create(@Body()blogEntry: BlogEntry, @Request() req): Observable<BlogEntry>{
         const user = req.user.user;
         return this.blogservice.create(user, blogEntry);
+    }
+
+    @Get()
+    findBlogEntries(@Query('userId') userId: number): Observable<BlogEntry[]>{
+        if(userId == null){
+            return this.blogservice.findAll();
+        }
+        else {
+            return this.blogservice.findByUser(userId);
+        }
+        
     }
 }
