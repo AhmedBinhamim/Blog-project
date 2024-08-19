@@ -1,6 +1,7 @@
-import { BlogEntry } from "src/blog/model/blog-entry.interface";
 
-export interface User{
+import { BlogEntryEntity } from "src/blog/model/blog-entry.entity"; // Ensure this import is correct
+
+export interface User {
     id?: number;
     name?: string;
     username?: string;
@@ -8,7 +9,7 @@ export interface User{
     password?: string;
     role?: UserRole;
     profileImage?: string;
-    blogEntries?: BlogEntry[];
+    blogEntries?: BlogEntryEntity[]; // Make sure this type matches your entity
 }
 
 export enum UserRole{
