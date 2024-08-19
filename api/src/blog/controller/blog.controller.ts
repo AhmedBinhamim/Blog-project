@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Request, UseGuards } from '@nestjs/common';
 import { BlogService } from '../service/blog.service';
 import { Observable } from 'rxjs';
 import { BlogEntry } from '../model/blog-entry.interface';
@@ -24,6 +24,10 @@ export class BlogController {
         else {
             return this.blogservice.findByUser(userId);
         }
-        
+    }
+
+    @Get(':id')
+    findOne(@Param('id') id: number): Observable<BlogEntry>{
+        return this.blogservice.findOne(id)
     }
 }
