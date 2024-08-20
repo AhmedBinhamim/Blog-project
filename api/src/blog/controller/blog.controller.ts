@@ -12,7 +12,7 @@ export class BlogController {
     @UseGuards(JwtAuthGuard)
     @Post()
     create(@Body()blogEntry: BlogEntry, @Request() req): Observable<BlogEntry>{
-        const user = req.user.user;
+        const user = req.user;
         return this.blogservice.create(user, blogEntry);
     }
 
