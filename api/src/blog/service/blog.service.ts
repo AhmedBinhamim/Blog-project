@@ -50,6 +50,10 @@ export class BlogService {
         }));
     }
 
+    updateOne(id: number, blogEntry: BlogEntry): Observable<BlogEntry>{
+        return 
+    }
+
     generateSlug(title: string): Observable<string>{
         return of(slugify(title));
     }
