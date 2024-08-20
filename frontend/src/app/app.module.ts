@@ -22,6 +22,8 @@ import { MatCardModule } from '@angular/material/card';
 import { UpdateUserProfileComponent } from './components/update-user-profile/update-user-profile.component'; 
 import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
 import { JwtInterceptor } from './interceptor/jwt.interceptor';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { JwtInterceptor } from './interceptor/jwt.interceptor';
     MatTableModule,
     MatPaginatorModule,
     MatCardModule,
+    MatProgressBarModule,
+    MatIconModule,
   ],
   providers: [
     provideClientHydration(),
