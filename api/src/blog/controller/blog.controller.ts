@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put, Query, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, Request, UseGuards } from '@nestjs/common';
 import { BlogService } from '../service/blog.service';
 import { Observable } from 'rxjs';
 import { BlogEntry } from '../model/blog-entry.interface';
@@ -37,5 +37,11 @@ export class BlogController {
     @Put(':id')
     updateOne(@Param('id') id: number, @Body() blogEntry: BlogEntry): Observable<BlogEntry>{
         return this.blogService.updateOne(Number(id), blogEntry);
+    }
+
+    @UseGuards(JwtAuthGuard, UserIsAuthorGuard)
+    @Delete(':id')
+    deleteOne(@Param('id') id: number): Observable<any>{
+        return this.blogService.deleteOne(id);
     }
 }
