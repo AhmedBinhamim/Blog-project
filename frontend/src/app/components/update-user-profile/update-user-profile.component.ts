@@ -5,7 +5,7 @@ import { UserService } from '../../services/user service/user.service';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { HttpErrorResponse, HttpEventType, HttpResponse } from '@angular/common/http';
 
-export interface File{
+export interface File {
   data: any;
   progress: number;
   inProgress: boolean;
@@ -14,9 +14,9 @@ export interface File{
 @Component({
   selector: 'app-update-user-profile',
   templateUrl: './update-user-profile.component.html',
-  styleUrl: './update-user-profile.component.scss'
+  styleUrls: ['./update-user-profile.component.scss'] // Corrected styleUrls typo
 })
-export class UpdateUserProfileComponent implements OnInit{
+export class UpdateUserProfileComponent implements OnInit {
 
   @ViewChild("fileUpload", { static: false }) fileUpload!: ElementRef;
 
@@ -32,7 +32,7 @@ export class UpdateUserProfileComponent implements OnInit{
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
     private userService: UserService
-  ){}
+  ) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -41,11 +41,10 @@ export class UpdateUserProfileComponent implements OnInit{
       username: [null, [Validators.required]],
       profileImage: [null]
     });
-  
+
     this.authService.getUserId().pipe(
       switchMap((id: number | null) => {
         if (id === null) {
-          // Handle the case where the id is null, for example, return an empty observable
           return of(null);
         }
         return this.userService.findOne(id).pipe(
@@ -59,10 +58,10 @@ export class UpdateUserProfileComponent implements OnInit{
           })
         );
       })
-    ).subscribe(); 
+    ).subscribe();
   }
 
-  onClick(){
+  onClick() {
     const fileInput = this.fileUpload.nativeElement;
     fileInput.click();
     fileInput.onchange = () => {
@@ -76,9 +75,7 @@ export class UpdateUserProfileComponent implements OnInit{
     }
   }
 
-  uploadFile(){
-    const file = this.file;
-
+  uploadFile() {
     const formData = new FormData();
     formData.append('file', this.file.data);
     this.file.inProgress = true;
@@ -87,7 +84,7 @@ export class UpdateUserProfileComponent implements OnInit{
       map((event: any) => {
         switch (event.type) {
           case HttpEventType.UploadProgress:
-            this.file.progress = Math.round(event.loaded * 100 / (event.total || 1));
+            this.file.progress = Math.round(event.loaded * 100 / event.total);
             break;
           case HttpEventType.Response:
             return event;
@@ -97,14 +94,14 @@ export class UpdateUserProfileComponent implements OnInit{
         this.file.inProgress = false;
         return of('Upload failed, try again');
       })
-    ).subscribe((event: HttpResponse<any>) => {
-      if (event instanceof HttpResponse) {
+    ).subscribe((event: any) => {
+      if (typeof (event) === 'object') {
         this.form.patchValue({ profileImage: event.body.profileImage });
       }
     });
   }
 
-  update(){
+  update() {
     this.userService.updateOne(this.form.getRawValue()).subscribe();
   }
 }
