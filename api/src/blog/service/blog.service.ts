@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { from, map, Observable, of, switchMap } from 'rxjs';
+import { from, map, Observable, of, switchMap, tap } from 'rxjs';
 import { BlogEntry } from '../model/blog-entry.interface';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BlogEntryEntity } from '../model/blog-entry.entity';
@@ -51,7 +51,9 @@ export class BlogService {
     }
 
     updateOne(id: number, blogEntry: BlogEntry): Observable<BlogEntry>{
-        return 
+        return from(this.blogRepository.update(id, blogEntry)).pipe(
+            switchMap(() => this.findOne(id))
+        )
     }
 
     generateSlug(title: string): Observable<string>{
