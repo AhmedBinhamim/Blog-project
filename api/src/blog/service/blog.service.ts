@@ -56,6 +56,10 @@ export class BlogService {
         )
     }
 
+    deleteOne(id: number): Observable<any>{
+        return from(this.blogRepository.delete(id));
+    }
+
     generateSlug(title: string): Observable<string>{
         return of(slugify(title));
     }
