@@ -5,7 +5,7 @@ import { BlogEntry } from '../model/blog-entry.interface';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-guard';
 import { UserIsAuthorGuard } from '../guards/user-is-author.guard';
 
-@Controller('blogs')
+@Controller('blog-entries')
 export class BlogController {
 
     constructor(private blogService: BlogService){}
