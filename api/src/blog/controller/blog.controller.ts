@@ -17,14 +17,28 @@ export class BlogController {
         return this.blogService.create(user, blogEntry);
     }
 
-    @Get()
-    findBlogEntries(@Query('userId') userId: number): Observable<BlogEntry[]>{
-        if(userId == null){
-            return this.blogService.findAll();
-        }
-        else {
-            return this.blogService.findByUser(userId);
-        }
+    // @Get()
+    // findBlogEntries(@Query('userId') userId: number): Observable<BlogEntry[]>{
+    //     if(userId == null){
+    //         return this.blogService.findAll();
+    //     }
+    //     else {
+    //         return this.blogService.findByUser(userId);
+    //     }
+    // }
+
+    @Get('')
+    index(
+        @Query('page') page: number = 1,
+        @Query('limit') limit: number = 10
+    ){
+        limit = limit > 100 ? 100 : limit;
+
+        return this.blogService.paginateAll({
+            limit: Number(limit),
+            page: Number(page),
+            route: 'http://localhost:3000/api/blog-entries'
+        })
     }
 
     @Get(':id')
