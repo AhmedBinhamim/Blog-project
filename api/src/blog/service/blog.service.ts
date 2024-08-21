@@ -6,6 +6,7 @@ import { BlogEntryEntity } from '../model/blog-entry.entity';
 import { Repository } from 'typeorm';
 import { UserService } from 'src/user/service/user.service';
 import { User } from 'src/user/models/user.interface';
+import { IPaginationOptions, paginate, Pagination } from 'nestjs-typeorm-paginate';
 
 const slugify = require('slugify');
 
@@ -29,6 +30,15 @@ export class BlogService {
 
     findAll(): Observable<BlogEntry[]>{
         return from(this.blogRepository.find({relations: ['author']}));
+    }
+
+    paginateAll(options: IPaginationOptions): Observable<Pagination<BlogEntry>>{
+        return from(paginate<BlogEntry>(this.blogRepository, options, {
+            relations: ['author']
+        })).pipe(
+            map((blogEntries: Pagination<BlogEntry>) => blogEntries)
+        )
+
     }
 
     findByUser(userId: number): Observable<BlogEntry[]>{
