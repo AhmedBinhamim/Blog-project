@@ -25,7 +25,7 @@ import { JwtInterceptor } from './interceptor/jwt.interceptor';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatIconModule} from '@angular/material/icon';
 import { HomeComponent } from './components/home/home.component';
-import { AllBlogEntriesComponent } from './all-blog-entries/all-blog-entries.component';
+import { AllBlogEntriesComponent } from './components/all-blog-entries/all-blog-entries.component';
 
 @NgModule({
   declarations: [
