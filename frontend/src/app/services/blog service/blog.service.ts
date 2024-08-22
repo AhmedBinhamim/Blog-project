@@ -10,11 +10,11 @@ export class BlogService {
 
   constructor(private http: HttpClient) { }
 
-  indexAll(page: number, size: number): Observable<BlogEntriesPageable>{
+  indexAll(page: number, limit: number): Observable<BlogEntriesPageable>{
     let params = new HttpParams();
 
     params = params.append('page', String(page));
-    params = params.append('size', String(size));
+    params = params.append('limit', String(limit));
 
     return this.http.get<BlogEntriesPageable>('/api/blog-entries', {params})
   }
