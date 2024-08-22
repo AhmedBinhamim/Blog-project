@@ -1,1 +1,14 @@
-<p>all-blog-entries works!</p>
+<div style="width: 50%; margin-left: 25%;">
+    <mat-card *ngFor="let blogEntry of (dataSource | async)?.items" style="margin-top: 15px;">
+        <div style="display: flex">
+            <div>
+                <img *ngIf="blogEntry.headerImage; else placeholderImage" 
+                     [src]="'http://localhost:3000/api/blog-entries/image/' + blogEntry.headerImage">
+                <ng-template #placeholderImage>
+                    <img src="http://localhost:3000/api/blog-entries/image/placeholder-blog-entry.jpg">
+                </ng-template>
+            </div>
+            {{blogEntry.title}}
+        </div>
+    </mat-card>
+</div>
