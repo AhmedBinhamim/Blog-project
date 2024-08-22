@@ -1,4 +1,4 @@
-import { User } from "../services/authentication service/authentication.service";
+import { User } from "./user.interface";
 
 export interface BlogEntry {
     id?: number;

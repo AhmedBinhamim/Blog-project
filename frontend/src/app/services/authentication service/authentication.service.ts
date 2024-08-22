@@ -2,22 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, of, switchMap, tap } from 'rxjs';
 import {JwtHelperService} from '@auth0/angular-jwt'
+import { User } from '../../model/user.interface';
 
 export interface LoginForm{
   email: string;
   password: string;
 };
 
-export interface User{
-  id?: number,
-  name?: string;
-  username?: string;
-  email?: string;
-  role?: string;
-  password?: string;
-  //passwordConfirm: string;
-  profileImage?:string;
-}
+
 
 export const JWT_NAME = 'blog-token';
 
