@@ -8,7 +8,20 @@
                     <img src="http://localhost:3000/api/blog-entries/image/placeholder-blog-entry.jpg">
                 </ng-template>
             </div>
-            {{blogEntry.title}}
+            <div style="margin-left: 30px">
+                <h2>{{blogEntry.title}}</h2>
+                <p>{{blogEntry.description}}</p>
+                <small>Author: {{blogEntry.author?.name}}</small>
+            </div>
         </div>
     </mat-card>
+
+    <mat-paginator
+    [length]="(dataSource | async)?.meta?.totalItems"
+    [pageSize]="(dataSource | async)?.meta?.itemsPerPage"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="pageEvent = $event; onPaginateChange($event)"
+    showFirstLastButtons>
+    </mat-paginator>
+
 </div>
