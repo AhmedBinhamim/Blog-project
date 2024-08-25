@@ -26,6 +26,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatIconModule} from '@angular/material/icon';
 import { HomeComponent } from './components/home/home.component';
 import { AllBlogEntriesComponent } from './components/all-blog-entries/all-blog-entries.component';
+import { CreateBlogEntryComponent } from './components/create-blog-entry/create-blog-entry.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { AllBlogEntriesComponent } from './components/all-blog-entries/all-blog-
     UserProfileComponent,
     UpdateUserProfileComponent,
     HomeComponent,
-    AllBlogEntriesComponent
+    AllBlogEntriesComponent,
+    CreateBlogEntryComponent
   ],
   imports: [
     BrowserModule,
