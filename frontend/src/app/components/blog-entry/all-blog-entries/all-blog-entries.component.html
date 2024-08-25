@@ -1,6 +1,6 @@
 <div style="width: 50%; margin-left: 25%;">
     <h2 style="margin-top: 15px;">All Blog Entries</h2>
-    <mat-card *ngFor="let blogEntry of (dataSource | async)?.items" style="margin-top: 15px;">
+    <mat-card *ngFor="let blogEntry of (dataSource | async)?.items" style="margin-top: 15px;" class="card" routerLink="../blog-entries/{{blogEntry.id}}">
         <div style="display: flex">
             <div>
                 <img *ngIf="blogEntry.headerImage; else placeholderImage" 
