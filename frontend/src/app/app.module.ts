@@ -58,7 +58,7 @@ import { MarkdownModule } from 'ngx-markdown'
     MatCardModule,
     MatProgressBarModule,
     MatIconModule,
-    MarkdownModule,
+    MarkdownModule.forRoot(),
   ],
   providers: [
     provideClientHydration(),
