@@ -1,6 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BlogService } from '../../services/blog service/blog.service';
+import { catchError, map, of } from 'rxjs';
+import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
 
 export interface File {
   data: any;
@@ -46,10 +48,42 @@ export class CreateBlogEntryComponent implements OnInit {
   }
 
   onClick(){
-
+    const fileInput = this.fileUpload.nativeElement;
+    fileInput.click();
+    fileInput.onchange = () => {
+      this.file = {
+        data: fileInput.files[0],
+        inProgress: false,
+        progress: 0,
+      };
+      this.fileUpload.nativeElement.value = '';
+      this.uploadFile();
+    }
   }
 
   uploadFile(){
-    
+    const formData = new FormData();
+    formData.append('file', this.file.data);
+    this.file.inProgress = true;
+
+    this.blogService.uploadHeaderImage(formData).pipe(
+      map((event: any) => {
+        switch (event.type) {
+          case HttpEventType.UploadProgress:
+            this.file.progress = Math.round(event.loaded * 100 / event.total);
+            break;
+          case HttpEventType.Response:
+            return event;
+        }
+      }),
+      catchError((error: HttpErrorResponse) => {
+        this.file.inProgress = false;
+        return of('Upload failed, try again');
+      })
+    ).subscribe((event: any) => {
+      if (typeof (event) === 'object') {
+        this.form.patchValue({ headerImage: event.body.filename });
+      }
+    });
   }
 }
