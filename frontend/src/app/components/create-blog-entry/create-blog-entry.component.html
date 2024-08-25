@@ -12,7 +12,7 @@
                                 </li>
                              </ul>
                              <mat-card-actions>
-                                <button mat-button color = "warn" (click)="onClick()">
+                                <button mat-button color="warn" (click)="onClick()">
                                     <mat-icon>cloud_upload</mat-icon>
                                     <small>Upload Image</small>
                                 </button>
@@ -22,7 +22,7 @@
                 <input type="file" #fileUpload id="fileUpload" name="fileUpload" accept="image/*" style="display: none">
             </div>
 
-            <div class="container">
+            <div class="container" style="width: 80%">
 
                 <mat-form-field>
                     <input matInput placeholder="Id" formControlName="id">
@@ -36,9 +36,13 @@
                     <input matInput placeholder="Description" formControlName="description">
                 </mat-form-field>
 
-                <mat-form-field>
-                    <input matInput placeholder="Body" formControlName="body">
+                <div style="display: flex; width: 100%">
+
+                <mat-form-field style="width: 45%">
+                    <textarea matInput rows="15" placeholder="Enter Markdown..." class="variable-textarea" formControlName="body"></textarea>
                 </mat-form-field>
+                <markdown class="variable-binding" style="border-style:dotted; width:45%; margin-left: 10%;" [data]="form.get('body')?.value"></markdown>
+                </div>
 
             </div>
             <button mat-flat-button color="primary" [disabled]="form.invalid" type="submit" (click)="post()">
