@@ -8,6 +8,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './components/home/home.component';
 import { CreateBlogEntryComponent } from './components/blog-entry/create-blog-entry/create-blog-entry.component';
 import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
+import { ViewBlogEntryComponent } from './components/blog-entry/view-blog-entry/view-blog-entry.component';
 
 const routes: Routes = [
   {
@@ -48,6 +49,10 @@ const routes: Routes = [
     path: 'create-blog-entry',
     component: CreateBlogEntryComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'blog-entries/:id',
+    component: ViewBlogEntryComponent,
   },
   {
     path: '',
