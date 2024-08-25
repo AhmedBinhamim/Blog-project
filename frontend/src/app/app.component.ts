@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from './services/authentication service/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -24,9 +25,13 @@ export class AppComponent {
     }
   ]
   
-  constructor(private router: Router){}
+  constructor(private router: Router, private authService: AuthenticationService){}
 
   navigateTo(value:any){
     this.router.navigate(['../', value]);
+  }
+
+  logOut(){
+    this.authService.logOut();
   }
 }
