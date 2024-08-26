@@ -2,6 +2,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { BlogEntriesPageable } from '../../../model/blog-entry.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-all-blog-entries',
@@ -17,12 +18,16 @@ export class AllBlogEntriesComponent {
   
   pageEvent: PageEvent | undefined;
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   
 
   onPaginateChange(event: PageEvent){
     event.pageIndex = event.pageIndex + 1
     this.paginate.emit(event);
+  }
+
+  navigate(id: any){
+    this.router.navigateByUrl('blog-entries/' + id);
   }
 }
