@@ -1,10 +1,46 @@
-.container{
+$primary-color: #1976d2; // Example primary color
+
+.login-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-}
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 2rem;
+    background-color: #f4f6f9;
 
-.container > * {
-    width: 40%;
+    .login-logo {
+        width: 150px; /* Adjust the width as needed */
+        margin-bottom: 2rem;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+    }
+
+    mat-form-field {
+        width: 100%;
+        margin-bottom: 1.5rem;
+    }
+
+    button {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1rem;
+        font-weight: 500;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: darken($primary-color, 10%);
+        }
+    }
 }
