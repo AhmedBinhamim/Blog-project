@@ -1,37 +1,93 @@
-mat-form-field{
-    width: 100;
-    margin-top: 10px;
+$form-background-color: #f7f9fc; // Soft background color
+$form-card-background: #ffffff; // White card background
+$primary-color: #1976d2; // Primary color
+$accent-color: #ff4081; // Accent color
+
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: $form-background-color;
+    padding: 2rem;
 }
 
-img{
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 5px;
-    width: 150px;
-}
-
-.container{
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    flex-direction: center;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 800px; // Adjusted width for the card
+    margin: 0 auto; // Center the container
+    padding: 2rem; // Padding for better spacing
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px; // Rounded corners
 }
 
-.variable-textarea {
-    border-radius: 5px;
-    box-shadow: 0 1px 2px rgba(0,0,0,.07);
-    min-height: 420px;
-    padding: 8px;
-    transition: all 300ms ease-out;
-  }
-  
-  .variable-textarea:hover {
-    box-shadow: 0 6px 12px 3px rgba(0,0,0,.09),
-      0 2px 3px 1px rgba(0,0,0,.06);
-  }
-  
-  .variable-binding {
-    display: block;
-    float: right;
-  }
+.upload-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem; // Space between upload section and form fields
+}
+
+.upload-card {
+    width: 100%; // Full width for upload card
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    background: $form-card-background;
+
+    img {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 5px;
+        width: 100%; // Responsive image
+        max-width: 150px; // Maximum width for the image
+        margin-bottom: 1rem;
+    }
+
+    mat-progress-bar {
+        margin-top: 1rem;
+        border-radius: 5px; // Rounded corners for progress bar
+    }
+
+    mat-card-actions {
+        justify-content: flex-start;
+    }
+}
+
+.form-fields {
+    width: 100%; // Full width for form fields
+}
+
+.form-field {
+    width: 100%; // Full width for form fields
+    margin-top: 1rem; // Space between form fields
+}
+
+.markdown-section {
+    display: flex;
+    width: 100%; // Full width for the markdown section
+    justify-content: space-between; // Space between textarea and preview
+    margin-top: 1rem; // Space above the markdown section
+}
+
+.textarea-field {
+    width: 48%; // Adjust width for the textarea
+}
+
+.markdown-preview {
+    width: 48%; // Adjust width for the markdown preview
+    border: 1px solid #ddd; // Border for the markdown preview
+    border-radius: 5px; // Rounded corners
+    padding: 1rem; // Padding for readability
+    background: $form-card-background; // Same background as the card
+    overflow-y: auto; // Scroll if content overflows
+}
+
+button {
+    margin-top: 1.5rem;
+    width: 100%; // Full width button
+}
