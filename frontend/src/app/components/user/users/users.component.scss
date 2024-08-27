@@ -1,0 +1,86 @@
+$primary-color: #1976d2; 
+$background-color: #f4f6f9; 
+
+.users-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 2rem;
+    background-color: $background-color;
+    width: 100%; 
+
+    h1 {
+        margin-bottom: 1.5rem;
+        color: $primary-color;
+        text-align: center;
+    }
+
+    mat-form-field {
+        width: 100%;
+        max-width: 400px; 
+        margin-bottom: 1.5rem;
+
+        mat-icon {
+            color: $primary-color;
+        }
+    }
+
+    .mat-elevation-z8 {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    mat-table {
+        width: 1000px; 
+        background: white;
+        border-radius: 8px;
+        overflow: hidden; 
+        table-layout: fixed; 
+
+        mat-header-cell, mat-cell {
+            padding: 1rem;
+            text-align: left; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+        }
+
+        ng-container[matColumnDef="id"] {
+            width: 10%; 
+            min-width: 80px; 
+        }
+        ng-container[matColumnDef="name"] {
+            width: 25%; 
+            min-width: 200px; 
+        }
+        ng-container[matColumnDef="username"] {
+            width: 20%; 
+            min-width: 150px; 
+        }
+        ng-container[matColumnDef="email"] {
+            width: 35%; 
+            min-width: 250px; 
+        }
+        ng-container[matColumnDef="role"] {
+            width: 10%; 
+            min-width: 100px; 
+        }
+
+        mat-header-cell {
+            background: $primary-color; 
+            color: white; 
+        }
+
+        mat-cell {
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.05); 
+                cursor: pointer;
+            }
+        }
+    }
+
+    mat-paginator {
+        margin-top: 1.5rem;
+    }
+}
