@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -29,6 +28,7 @@ import { MarkdownModule } from 'ngx-markdown'
 import { UserProfileComponent } from './components/user/user-profile/user-profile.component';
 import { AllBlogEntriesComponent } from './components/blog-entry/all-blog-entries/all-blog-entries.component';
 import { ViewBlogEntryComponent } from './components/blog-entry/view-blog-entry/view-blog-entry.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -60,6 +60,7 @@ import { ViewBlogEntryComponent } from './components/blog-entry/view-blog-entry/
     MatCardModule,
     MatProgressBarModule,
     MatIconModule,
+    MatMenuModule,
     MarkdownModule.forRoot(),
   ],
   providers: [
