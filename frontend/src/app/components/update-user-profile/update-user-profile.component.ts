@@ -1,11 +1,12 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthenticationService} from '../../services/authentication service/authentication.service';
+import { AuthenticationService } from '../../services/authentication service/authentication.service';
 import { UserService } from '../../services/user service/user.service';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
-import { HttpErrorResponse, HttpEventType, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { User } from '../../model/user.interface';
 import { WINDOW } from '../../window-token';
+import { isPlatformBrowser } from '@angular/common';
 
 export interface File {
   data: any;
@@ -16,11 +17,11 @@ export interface File {
 @Component({
   selector: 'app-update-user-profile',
   templateUrl: './update-user-profile.component.html',
-  styleUrls: ['./update-user-profile.component.scss'] // Corrected styleUrls typo
+  styleUrls: ['./update-user-profile.component.scss']
 })
 export class UpdateUserProfileComponent implements OnInit {
 
-  origin: string;
+  origin: string = '';
 
   @ViewChild("fileUpload", { static: false }) fileUpload!: ElementRef;
 
@@ -36,10 +37,13 @@ export class UpdateUserProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthenticationService,
     private userService: UserService,
-    @Inject(WINDOW) private window: Window
+    @Inject(WINDOW) private window: Window,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
-    this.origin = this.window.location.origin;
-   }
+    if (isPlatformBrowser(this.platformId)) {
+      this.origin = this.window.location.origin;
+    }
+  }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
