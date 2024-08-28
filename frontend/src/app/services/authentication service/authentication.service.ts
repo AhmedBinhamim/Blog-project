@@ -39,25 +39,33 @@ export class AuthenticationService {
     )
   }
 
-  isAuthenticated():boolean{
-    const token = localStorage.getItem(JWT_NAME)
-    return this.jwtHelper.isTokenExpired(token);
+  isAuthenticated(): boolean {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem(JWT_NAME);
+      return !this.jwtHelper.isTokenExpired(token);
+    }
+    return false; 
   }
+  
 
   getUserId(): Observable<number | null> {
-    return of(localStorage.getItem(JWT_NAME)).pipe(
-      switchMap((jwt: string | null) => 
-        of(jwt).pipe(
-          map((token: string | null) => {
-            if (!token) {
-              return null;
-            }
-            const decodedToken = this.jwtHelper.decodeToken(token);
-            return decodedToken.user.id;
-          }),
+    if (typeof window !== 'undefined') {
+      return of(localStorage.getItem(JWT_NAME)).pipe(
+        switchMap((jwt: string | null) => 
+          of(jwt).pipe(
+            map((token: string | null) => {
+              if (!token) {
+                return null;
+              }
+              const decodedToken = this.jwtHelper.decodeToken(token);
+              return decodedToken.user.id;
+            }),
+          )
         )
-      )
-    );
+      );
+    }
+    return of(null);
   }
+  
   
 }
