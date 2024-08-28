@@ -1,8 +1,9 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { BlogEntriesPageable } from '../../../model/blog-entry.interface';
 import { Router } from '@angular/router';
+import { WINDOW } from '../../../window-token';
 
 @Component({
   selector: 'app-all-blog-entries',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class AllBlogEntriesComponent {
 
+  origin: string;
   @Input() blogEntries!: BlogEntriesPageable;
   @Output() paginate: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
 
@@ -18,7 +20,9 @@ export class AllBlogEntriesComponent {
   
   pageEvent: PageEvent | undefined;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,  @Inject(WINDOW) private window: Window) {
+    this.origin = this.window.location.origin;
+  }
 
   
 

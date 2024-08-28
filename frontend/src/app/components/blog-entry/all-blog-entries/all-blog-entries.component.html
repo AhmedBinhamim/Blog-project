@@ -3,9 +3,9 @@
         <div style="display: flex">
             <div>
                 <img *ngIf="blogEntry.headerImage; else placeholderImage" 
-                     [src]="'http://localhost:3000/api/blog-entries/image/' + blogEntry.headerImage">
+                     [src]="'{{origin}}/api/blog-entries/image/' + blogEntry.headerImage">
                 <ng-template #placeholderImage>
-                    <img src="http://localhost:3000/api/blog-entries/image/placeholder-blog-entry.jpg">
+                    <img src="{{origin}}/api/blog-entries/image/placeholder-blog-entry.jpg">
                 </ng-template>
             </div>
             <div style="margin-left: 30px">
