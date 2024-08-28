@@ -41,6 +41,4 @@ export class LoginComponent implements OnInit {
       map(token => this.router.navigate(['admin']))
     ).subscribe();
   }
-  
-  
 }
