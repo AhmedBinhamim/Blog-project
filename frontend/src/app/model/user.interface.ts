@@ -5,6 +5,5 @@ export interface User{
     email?: string;
     role?: string;
     password?: string;
-    //passwordConfirm: string;
     profileImage?:string;
   }

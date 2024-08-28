@@ -20,7 +20,7 @@ export interface File {
 })
 export class CreateBlogEntryComponent implements OnInit {
 
-  origin: string = ''; // Initialize origin as an empty string
+  origin: string = ''; 
   @ViewChild("fileUpload", { static: false }) fileUpload!: ElementRef;
 
   file: File = {
@@ -40,7 +40,6 @@ export class CreateBlogEntryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Initialize the form
     this.form = this.formBuilder.group({
       id: [{ value: null, disabled: true }],
       title: [null, [Validators.required]],
@@ -50,7 +49,6 @@ export class CreateBlogEntryComponent implements OnInit {
       headerImage: [null, [Validators.required]]
     });
 
-    // Set the origin based on the platform
     if (isPlatformBrowser(this.platformId)) {
       this.origin = this.window.location.origin;
     } else {
