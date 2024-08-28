@@ -29,6 +29,7 @@ import { UserProfileComponent } from './components/user/user-profile/user-profil
 import { AllBlogEntriesComponent } from './components/blog-entry/all-blog-entries/all-blog-entries.component';
 import { ViewBlogEntryComponent } from './components/blog-entry/view-blog-entry/view-blog-entry.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { WINDOW_PROVIDERS } from './window-token';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MarkdownModule.forRoot(),
   ],
   providers: [
+    WINDOW_PROVIDERS,
     provideClientHydration(),
     provideAnimationsAsync(),
     JwtHelperService,
