@@ -1,10 +1,11 @@
-import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BlogService } from '../../../services/blog service/blog.service';
 import { catchError, map, of, tap } from 'rxjs';
 import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { WINDOW } from '../../../window-token';
+import { isPlatformBrowser } from '@angular/common';
 
 export interface File {
   data: any;
@@ -15,11 +16,11 @@ export interface File {
 @Component({
   selector: 'app-create-blog-entry',
   templateUrl: './create-blog-entry.component.html',
-  styleUrl: './create-blog-entry.component.scss'
+  styleUrls: ['./create-blog-entry.component.scss']
 })
 export class CreateBlogEntryComponent implements OnInit {
 
-  origin: string;
+  origin: string = ''; // Initialize origin as an empty string
   @ViewChild("fileUpload", { static: false }) fileUpload!: ElementRef;
 
   file: File = {
@@ -29,34 +30,41 @@ export class CreateBlogEntryComponent implements OnInit {
   }
 
   form!: FormGroup;
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private blogService: BlogService,
     private router: Router,
     @Inject(WINDOW) private window: Window,
-  ){
-    this.origin = this.window.location.origin;
-  }
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit(): void {
-      this.form = this.formBuilder.group({
-        id: [{value: null, disabled: true}],
-        title: [null, [Validators.required]],
-        slug: [{value: null, disabled: true}],
-        description: [null, [Validators.required]],
-        body: [null, [Validators.required]],
-        headerImage: [null, [Validators.required]]
-      })
+    // Initialize the form
+    this.form = this.formBuilder.group({
+      id: [{ value: null, disabled: true }],
+      title: [null, [Validators.required]],
+      slug: [{ value: null, disabled: true }],
+      description: [null, [Validators.required]],
+      body: [null, [Validators.required]],
+      headerImage: [null, [Validators.required]]
+    });
+
+    // Set the origin based on the platform
+    if (isPlatformBrowser(this.platformId)) {
+      this.origin = this.window.location.origin;
+    } else {
+      this.origin = '';
+    }
   }
 
-  post(){
+  post() {
     this.blogService.post(this.form.getRawValue()).pipe(
       tap(() => this.router.navigate(['../']))
     ).subscribe();
   }
 
-  onClick(){
+  onClick() {
     const fileInput = this.fileUpload.nativeElement;
     fileInput.click();
     fileInput.onchange = () => {
@@ -67,10 +75,10 @@ export class CreateBlogEntryComponent implements OnInit {
       };
       this.fileUpload.nativeElement.value = '';
       this.uploadFile();
-    }
+    };
   }
 
-  uploadFile(){
+  uploadFile() {
     const formData = new FormData();
     formData.append('file', this.file.data);
     this.file.inProgress = true;
