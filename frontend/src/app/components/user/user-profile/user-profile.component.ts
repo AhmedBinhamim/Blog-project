@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { map, Observable, Subscription, switchMap, tap } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
 import { User } from '../../../model/user.interface';
@@ -6,6 +6,7 @@ import { UserService } from '../../../services/user service/user.service';
 import { BlogEntriesPageable } from '../../../model/blog-entry.interface';
 import { BlogService } from '../../../services/blog service/blog.service';
 import { PageEvent } from '@angular/material/paginator';
+import { WINDOW } from '../../../window-token';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,6 +15,8 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
 
+  origin: string;
+  
   private sub: Subscription | undefined;
   user$: Observable<User> | undefined;
   private userId$: Observable<number> | undefined;
@@ -22,8 +25,11 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRouter: ActivatedRoute,
     private userService: UserService,
-    private blogService: BlogService
-  ){}
+    private blogService: BlogService,
+    @Inject(WINDOW) private window: Window
+  ){
+    this.origin = this.window.location.origin;
+  }
 
   ngOnInit(): void {
     this.userId$ = this.activatedRouter.params.pipe(
